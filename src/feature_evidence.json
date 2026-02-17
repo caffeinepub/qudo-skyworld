@@ -1,0 +1,221 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-design-and-implement-a-brand-new-relaxing-mini-game-experience-inspired-by-the-provided-pastel-sky-image-aesthetic-soft-dreamy-sky-gradient-rounded-bubble-lettering-feel-floating-clouds-flowers-sparkles-and-a-glowing-qudo-symbol-as-a-central-motif",
+      "featureTitle": "Design and implement a brand-new relaxing mini-game experience inspired by the provided pastel sky image aesthetic: soft dreamy sky gradient, rounded bubble lettering feel, floating clouds/flowers/sparkles, and a glowing Qudo symbol as a central motif.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/HudOverlay.tsx",
+        "frontend/src/game/GameCanvas.tsx",
+        "frontend/src/game/assets.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-unique-gameplay-mechanic-never-seen-game-idea-centered-on-a-personal-sky-world-that-players-cultivate-during-short-relaxing-sessions-players-drift-through-a-sky-lane-gently-guide-a-cloud-avatar-to-collect-flowers-sparkles-and-convert-collections-into-decorations-that-appear-in-their-persistent-sky-world-glowing-qudo-symbols-appear-as-rare-timed-boosts-that-affect-collection-and-reward-rate-without-enabling-idle-farming",
+      "featureTitle": "Create a unique gameplay mechanic (never-seen game idea) centered on a personal \"Sky World\" that players cultivate during short relaxing sessions: players drift through a sky lane, gently guide a cloud-avatar to collect flowers/sparkles, and convert collections into decorations that appear in their persistent Sky World; glowing Qudo symbols appear as rare timed boosts that affect collection and reward rate without enabling idle farming.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/SessionSummaryModal.tsx",
+        "frontend/src/game/progression.ts",
+        "frontend/src/game/sessionLogic.ts",
+        "frontend/src/pages/SkyWorldPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-telegram-mini-app-compatibility-so-the-game-works-fully-inside-telegram-s-in-app-browser-responsive-layout-touch-friendly-controls-safe-area-handling-and-support-for-telegram-webapp-initialization-data-when-present-graceful-fallback-when-running-outside-telegram-for-local-testing",
+      "featureTitle": "Implement Telegram Mini App compatibility so the game works fully inside Telegram’s in-app browser: responsive layout, touch-friendly controls, safe-area handling, and support for Telegram WebApp initialization data when present (graceful fallback when running outside Telegram for local testing).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useTelegram.ts",
+        "frontend/src/index.css",
+        "frontend/src/lib/telegramWebApp.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-adapt-visuals-based-on-the-player-s-real-world-time-of-day-implement-at-least-4-time-bands-night-morning-afternoon-evening-that-adjust-sky-gradient-cloud-tint-sparkle-density-and-glow-intensity-while-preserving-the-pastel-mood",
+      "featureTitle": "Adapt visuals based on the player’s real-world time of day: implement at least 4 time bands (night, morning, afternoon, evening) that adjust sky gradient, cloud tint, sparkle density, and glow intensity while preserving the pastel mood.",
+      "files": [
+        "frontend/src/components/HudOverlay.tsx",
+        "frontend/src/components/ThemeSettingsSheet.tsx",
+        "frontend/src/game/GameCanvas.tsx",
+        "frontend/src/theme/timeOfDay.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-play-relaxing-background-sounds-automatically-with-user-respectful-controls-start-audio-after-the-first-user-interaction-to-satisfy-browser-autoplay-policies-provide-volume-and-mute-controls-and-include-at-least-2-ambient-layers-wind-chimes-plus-a-soft-looped-melody",
+      "featureTitle": "Play relaxing background sounds automatically with user-respectful controls: start audio after the first user interaction to satisfy browser autoplay policies; provide volume and mute controls, and include at least 2 ambient layers (wind/chimes) plus a soft looped melody.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/audio/useAudioManager.ts",
+        "frontend/src/components/AudioControls.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-social-interaction-by-allowing-players-to-visit-friends-sky-worlds-implement-a-friend-visit-system-where-a-player-can-input-or-share-a-friend-code-link-view-the-friend-s-world-snapshot-and-leave-a-lightweight-reaction-e-g-a-sparkle-note-that-appears-in-the-friend-s-inbox",
+      "featureTitle": "Add social interaction by allowing players to visit friends’ Sky Worlds: implement a friend/visit system where a player can input or share a friend code/link, view the friend’s world snapshot, and leave a lightweight reaction (e.g., a sparkle note) that appears in the friend’s inbox.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/SocialPage.tsx",
+        "frontend/src/social/friendCodes.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-telegram-bot-command-design-and-in-app-equivalents-define-a-clear-set-of-bot-style-commands-e-g-start-play-world-visit-code-balance-help-and-implement-these-flows-inside-the-mini-app-ui-as-navigable-actions-and-shareable-deep-links-include-a-configuration-documentation-section-describing-what-a-real-telegram-bot-would-need-to-forward-users-into-the-mini-app-without-requiring-external-hosting-in-this-build",
+      "featureTitle": "Provide Telegram bot command design and in-app equivalents: define a clear set of bot-style commands (e.g., /start, /play, /world, /visit <code>, /balance, /help) and implement these flows inside the Mini App UI as navigable actions and shareable deep links; include a configuration/documentation section describing what a real Telegram bot would need to forward users into the Mini App, without requiring external hosting in this build.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/deepLinks.ts",
+        "frontend/src/pages/HelpCommandsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-coherent-ui-theme-and-component-styling-aligned-to-the-pastel-sky-reference-soft-gradients-rounded-bubble-ui-surfaces-gentle-motion-sparkly-accents-and-friendly-typography-ensure-consistent-styling-across-menus-hud-world-view-rewards-screens-and-social-screens-avoid-default-template-look",
+      "featureTitle": "Implement a coherent UI theme and component styling aligned to the pastel sky reference: soft gradients, rounded bubble UI surfaces, gentle motion, sparkly accents, and friendly typography; ensure consistent styling across menus, HUD, world view, rewards screens, and social screens (avoid default/template look).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/PastelPanel.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-11"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-monetization-design-as-non-pay-to-win-implement-a-simple-in-game-cosmetics-shop-ui-with-purely-cosmetic-items-cloud-trails-flower-palettes-sparkle-styles-world-frames-purchasable-via-an-internal-soft-currency-earned-through-play-and-include-placeholders-for-a-future-paid-upgrade-path-no-external-payment-integration-required-in-this-build",
+      "featureTitle": "Add monetization design as non-pay-to-win: implement a simple in-game “Cosmetics Shop” UI with purely cosmetic items (cloud trails, flower palettes, sparkle styles, world frames) purchasable via an internal soft currency earned through play, and include placeholders for a future paid upgrade path (no external payment integration required in this build).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/game/GameCanvas.tsx",
+        "frontend/src/pages/CosmeticsShopPage.tsx",
+        "frontend/src/state/useCosmetics.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-required-static-art-assets-matching-the-reference-backgrounds-sprites-ui-marks-and-render-them-as-bundled-static-assets-do-not-generate-or-fetch-images-via-the-backend-at-runtime",
+      "featureTitle": "Create required static art assets matching the reference (backgrounds, sprites, UI marks) and render them as bundled static assets; do not generate or fetch images via the backend at runtime.",
+      "files": [
+        "frontend/src/components/PastelPanel.tsx",
+        "frontend/src/game/assets.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

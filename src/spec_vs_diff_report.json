@@ -1,0 +1,112 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-17T17:53:57.807Z",
+  "summary": "Diff adds a new Motoko backend actor with profile/world/reward/visit types and a new React frontend with canvas-based mini-game, time-of-day theming controls, Telegram WebApp detection/sharing fallback, audio manager + controls, deep-link parsing, and multiple pages (world/social/rewards/shop/help). Several BuildRequest backend requirements (anti-cheat, tamper-evident ledger, stable persistence) and some social/commands/shop specifics are not clearly evidenced in the provided diff summary (backend file is truncated and several added files are omitted).",
+  "missing_requirements": [
+    {
+      "id": "REQ-4",
+      "requirement": "Backend stores per-user reward balance and an append-only tamper-evident reward ledger (session id, timestamp, reason, amount) and frontend shows balance + last N reward events; rewards only after completed verified session using active-time + action signals.",
+      "reason": "Frontend records a reward event from the session summary, but the diff summary does not show a backend append-only/tamper-evident ledger design, session id linkage, or a balance query; backend/main.mo is truncated before reward/session logic is shown.",
+      "evidence": [
+        "frontend/src/components/SessionSummaryModal.tsx",
+        "frontend/src/hooks/useQueries.ts (truncated)",
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Anti-cheat protections: periodic client heartbeats + interaction proofs, server-side rate limits/anomaly detection, downscaling/blocking rewards, recording audit flags, and exposing status message in UI.",
+      "reason": "Session logic tracks local interactions, but there is no evidence in the diff summary of client heartbeats to the canister, server-side validation/rate limiting/anomaly detection, or any UI surfacing of anti-cheat flags; backend/main.mo is truncated before any such logic would appear.",
+      "evidence": [
+        "frontend/src/game/sessionLogic.ts (truncated)",
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Social visiting with friend code/link: open a friend's Sky World by code/link and leave a reaction stored in friend's inbox; must not enable reward exploits.",
+      "reason": "Types for FriendVisit and visits array exist, and deep link helper has createFriendVisitLink(), but the diff summary does not show friend-code generation/lookup, a visit-by-code flow, or a reaction/inbox UI and corresponding backend methods (SocialPage not shown; backend truncated).",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/lib/deepLinks.ts",
+        "frontend/src/App.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Persistent canister data structures for profiles/world/progression/session tracking/reward ledger/anti-cheat/friends/visits/reactions with stable persistence across upgrades.",
+      "reason": "backend/main.mo shows in-memory Maps for userProfiles/pastelSkyProfiles/friendsDatabase but no stable variables or upgrade hooks are evidenced in the visible portion; also session tracking, anti-cheat flags, and reaction/inbox structures are not clearly shown.",
+      "evidence": [
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Help/Commands screen listing bot-style commands and mapping to in-app actions/deep links, plus documentation on what a real Telegram bot would need to forward users into the Mini App.",
+      "reason": "App.tsx imports HelpCommandsPage, but the diff summary does not include the contents of HelpCommandsPage or any explicit command list/mapping/documentation text.",
+      "evidence": [
+        "frontend/src/App.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "Cosmetics Shop UI with at least 12 cosmetic items grouped into categories; preview/equip; visual-only; placeholder for future paid upgrade path.",
+      "reason": "App.tsx imports CosmeticsShopPage and game code references equippedCosmetics, but the diff summary does not show the shop page contents (items/categories/preview/equip) nor any explicit 'future/placeholder' paid upgrade labeling.",
+      "evidence": [
+        "frontend/src/App.tsx (truncated)",
+        "frontend/src/game/GameCanvas.tsx (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Admin/authorization system requiring initialization with a secret token parameter (\"caffeineAdminToken\") and AccessControl/MixinAuthorization integration.",
+      "reason": "BuildRequest requires Internet Identity for auth when needed and forbids third-party auth, but does not request an additional admin secret-token bootstrap mechanism or AccessControl framework; this appears as extra functionality beyond requested requirements.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    }
+  ],
+  "confidence": 0.66,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/audio/useAudioManager.ts",
+    "frontend/src/components/AudioControls.tsx",
+    "frontend/src/components/HudOverlay.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/PastelPanel.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/SessionSummaryModal.tsx",
+    "frontend/src/components/ThemeSettingsSheet.tsx",
+    "frontend/src/game/GameCanvas.tsx",
+    "frontend/src/game/assets.ts",
+    "frontend/src/game/progression.ts",
+    "frontend/src/game/sessionLogic.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useTelegram.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/deepLinks.ts",
+    "frontend/src/lib/telegramWebApp.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CosmeticsShopPage.tsx",
+    "frontend/src/pages/HelpCommandsPage.tsx",
+    "frontend/src/pages/RewardsPage.tsx",
+    "frontend/src/pages/SkyWorldPage.tsx",
+    "frontend/src/pages/SocialPage.tsx",
+    "frontend/src/social/friendCodes.ts",
+    "frontend/src/state/useCosmetics.ts",
+    "frontend/src/theme/timeOfDay.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

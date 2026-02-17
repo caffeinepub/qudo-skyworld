@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Design and build a unique Telegram mini-game for game.qudo.io with a soft pastel sky aesthetic, time-of-day adaptive visuals, relaxing audio, Qudo token rewards with anti-cheat, and social sky-world visiting.",
+  "architectural_notes": [
+    "Target platform: Telegram Mini App (WebApp) for game.qudo.io; must run fully inside Telegram.",
+    "Rewards: Qudo token integration requires secure issuance flow and anti-cheat telemetry for active-time-based earning.",
+    "Personalization: visuals adapt to client local time-of-day.",
+    "Audio: background ambient sound/music auto-start with appropriate Telegram/web audio constraints."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Pastel dreamy sky background (top light blue fading into peach/cream clouds) (sky-bg-morning.dim_1920x1080.png)\n- Pastel dreamy sky background with warmer highlights and denser sparkles (sky-bg-afternoon.dim_1920x1080.png)\n- Pastel dreamy sky background with golden peach sunset tones (sky-bg-evening.dim_1920x1080.png)\n- Pastel dreamy sky background with soft night tint and subtle stars (sky-bg-night.dim_1920x1080.png)\n- Rounded bubble-style cloud avatar sprite sheet, 8 frames (cloud-avatar-sprites.dim_1024x1024.png)\n- Floating flower icons set (pink/orange/red/white), 16 icons (flower-icons-sheet.dim_1024x1024.png)\n- Sparkles and star particles sprite sheet (sparkle-particles.dim_1024x1024.png)\n- Glowing circular Qudo-like sun symbol icon (qudo-sun-icon.dim_512x512.png)\n- Soft rounded UI panel texture with subtle grain (ui-panel-texture.dim_1024x1024.png)",
+  "existing_features": [
+    {
+      "id": "feature-design-and-implement-a-brand-new-relaxing-mini-game-experience-inspired-by-the-provided-pastel-sky-image-aesthetic-soft-dreamy-sky-gradient-rounded-bubble-lettering-feel-floating-clouds-flowers-sparkles-and-a-glowing-qudo-symbol-as-a-central-motif",
+      "title": "Design and implement a brand-new relaxing mini-game experience inspired by the provided pastel sky image aesthetic: soft dreamy sky gradient, rounded bubble lettering feel, floating clouds/flowers/sparkles, and a glowing Qudo symbol as a central motif.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-unique-gameplay-mechanic-never-seen-game-idea-centered-on-a-personal-sky-world-that-players-cultivate-during-short-relaxing-sessions-players-drift-through-a-sky-lane-gently-guide-a-cloud-avatar-to-collect-flowers-sparkles-and-convert-collections-into-decorations-that-appear-in-their-persistent-sky-world-glowing-qudo-symbols-appear-as-rare-timed-boosts-that-affect-collection-and-reward-rate-without-enabling-idle-farming",
+      "title": "Create a unique gameplay mechanic (never-seen game idea) centered on a personal \"Sky World\" that players cultivate during short relaxing sessions: players drift through a sky lane, gently guide a cloud-avatar to collect flowers/sparkles, and convert collections into decorations that appear in their persistent Sky World; glowing Qudo symbols appear as rare timed boosts that affect collection and reward rate without enabling idle farming.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-telegram-mini-app-compatibility-so-the-game-works-fully-inside-telegram-s-in-app-browser-responsive-layout-touch-friendly-controls-safe-area-handling-and-support-for-telegram-webapp-initialization-data-when-present-graceful-fallback-when-running-outside-telegram-for-local-testing",
+      "title": "Implement Telegram Mini App compatibility so the game works fully inside Telegram’s in-app browser: responsive layout, touch-friendly controls, safe-area handling, and support for Telegram WebApp initialization data when present (graceful fallback when running outside Telegram for local testing).",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adapt-visuals-based-on-the-player-s-real-world-time-of-day-implement-at-least-4-time-bands-night-morning-afternoon-evening-that-adjust-sky-gradient-cloud-tint-sparkle-density-and-glow-intensity-while-preserving-the-pastel-mood",
+      "title": "Adapt visuals based on the player’s real-world time of day: implement at least 4 time bands (night, morning, afternoon, evening) that adjust sky gradient, cloud tint, sparkle density, and glow intensity while preserving the pastel mood.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-play-relaxing-background-sounds-automatically-with-user-respectful-controls-start-audio-after-the-first-user-interaction-to-satisfy-browser-autoplay-policies-provide-volume-and-mute-controls-and-include-at-least-2-ambient-layers-wind-chimes-plus-a-soft-looped-melody",
+      "title": "Play relaxing background sounds automatically with user-respectful controls: start audio after the first user interaction to satisfy browser autoplay policies; provide volume and mute controls, and include at least 2 ambient layers (wind/chimes) plus a soft looped melody.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-social-interaction-by-allowing-players-to-visit-friends-sky-worlds-implement-a-friend-visit-system-where-a-player-can-input-or-share-a-friend-code-link-view-the-friend-s-world-snapshot-and-leave-a-lightweight-reaction-e-g-a-sparkle-note-that-appears-in-the-friend-s-inbox",
+      "title": "Add social interaction by allowing players to visit friends’ Sky Worlds: implement a friend/visit system where a player can input or share a friend code/link, view the friend’s world snapshot, and leave a lightweight reaction (e.g., a sparkle note) that appears in the friend’s inbox.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-telegram-bot-command-design-and-in-app-equivalents-define-a-clear-set-of-bot-style-commands-e-g-start-play-world-visit-code-balance-help-and-implement-these-flows-inside-the-mini-app-ui-as-navigable-actions-and-shareable-deep-links-include-a-configuration-documentation-section-describing-what-a-real-telegram-bot-would-need-to-forward-users-into-the-mini-app-without-requiring-external-hosting-in-this-build",
+      "title": "Provide Telegram bot command design and in-app equivalents: define a clear set of bot-style commands (e.g., /start, /play, /world, /visit <code>, /balance, /help) and implement these flows inside the Mini App UI as navigable actions and shareable deep links; include a configuration/documentation section describing what a real Telegram bot would need to forward users into the Mini App, without requiring external hosting in this build.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-coherent-ui-theme-and-component-styling-aligned-to-the-pastel-sky-reference-soft-gradients-rounded-bubble-ui-surfaces-gentle-motion-sparkly-accents-and-friendly-typography-ensure-consistent-styling-across-menus-hud-world-view-rewards-screens-and-social-screens-avoid-default-template-look",
+      "title": "Implement a coherent UI theme and component styling aligned to the pastel sky reference: soft gradients, rounded bubble UI surfaces, gentle motion, sparkly accents, and friendly typography; ensure consistent styling across menus, HUD, world view, rewards screens, and social screens (avoid default/template look).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-monetization-design-as-non-pay-to-win-implement-a-simple-in-game-cosmetics-shop-ui-with-purely-cosmetic-items-cloud-trails-flower-palettes-sparkle-styles-world-frames-purchasable-via-an-internal-soft-currency-earned-through-play-and-include-placeholders-for-a-future-paid-upgrade-path-no-external-payment-integration-required-in-this-build",
+      "title": "Add monetization design as non-pay-to-win: implement a simple in-game “Cosmetics Shop” UI with purely cosmetic items (cloud trails, flower palettes, sparkle styles, world frames) purchasable via an internal soft currency earned through play, and include placeholders for a future paid upgrade path (no external payment integration required in this build).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-required-static-art-assets-matching-the-reference-backgrounds-sprites-ui-marks-and-render-them-as-bundled-static-assets-do-not-generate-or-fetch-images-via-the-backend-at-runtime",
+      "title": "Create required static art assets matching the reference (backgrounds, sprites, UI marks) and render them as bundled static assets; do not generate or fetch images via the backend at runtime.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create core gameplay concept and mechanics for a pastel sky-themed Telegram mini-game (clouds/flowers/sparkles/Qudo symbols)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Implement Qudo token reward system tied to honest play and active time tracking",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add anti-cheat protections for active-time tracking and reward issuance",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Build Telegram integration (Mini App + bot commands) to run fully inside Telegram",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Time-of-day adaptive visuals based on player real-world time",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Relaxing background sounds/music that play automatically",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Social features: visiting friends’ sky worlds and lightweight social interaction",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "UI/UX art direction matching dreamy pastel sky mood (clouds, flowers, sparkles, glowing Qudo symbol)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Define database structure to support gameplay, rewards, anti-cheat signals, and social features",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Monetization design appropriate for a relaxing Telegram mini-game (non-pay-to-win)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Add a Qudo rewards system that converts verified active play time and honest in-game actions into reward units and records them in a tamper-evident on-canister reward ledger; expose a player-facing balance and session reward breakdown. Implement the integration as an internal \"Qudo token\" balance ledger within the app, with an explicit interface layer that can later be wired to a real Qudo token canister if identifiers/endpoints are provided.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Implement anti-cheat protections for active-time tracking and reward issuance: require periodic client heartbeats plus interaction proofs (e.g., movement/collection events) to qualify time as active; enforce server-side rate limits and anomaly detection (e.g., impossible interaction frequency, identical repeating patterns, excessive session counts) that reduces/blocks rewards and records an audit flag.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Define and implement persistent data structures (“database structure”) in the Motoko canister to support: user profiles, world state/progression, session tracking, reward ledger, anti-cheat flags, friend links, and visit/reaction messages; ensure stable persistence across upgrades using the template’s recommended approach when state is introduced.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Qudo Skyworld",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,385 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Qudo Skyworld — Pastel Sky Telegram Mini-Game (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Create a calm, pastel-sky-themed playable mini-game scene with clouds/flowers/sparkles and a glowing Qudo symbol motif that starts immediately.",
+      "acceptanceCriteria": [
+        "The app has a playable core loop that starts immediately on load (no complex setup required).",
+        "Game objects include clouds, flowers, sparkles/stars, and a glowing Qudo-symbol object.",
+        "Visual tone is calm/welcoming/joyful/relaxing/dreamy/safe-and-friendly throughout the UI and gameplay."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the root app shell that loads directly into the mini-game play view with a pastel-themed HUD and navigation to World/Rewards/Social/Shop/Help. Use shadcn-ui components (e.g., Button, Dialog, Sheet, Tabs/Card) for rounded bubble panels and menus; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/GameCanvas.tsx",
+          "operation": "create",
+          "description": "Implement the main 2D game canvas/view (requestAnimationFrame loop) rendering clouds, floating flowers, sparkles/stars, and a glowing Qudo symbol object using bundled sprites. Ensure the play loop begins immediately on load and supports pointer/touch input."
+        },
+        {
+          "path": "frontend/src/game/assets.ts",
+          "operation": "create",
+          "description": "Centralize mapping for generated sprite/background asset paths and sprite-sheet frame metadata, including the cloud avatar, flowers, sparkles, and Qudo icon."
+        },
+        {
+          "path": "frontend/src/components/HudOverlay.tsx",
+          "operation": "create",
+          "description": "Add a calming HUD overlay (score/flowers/sparkles/time remaining/Qudo-boost indicator) styled as rounded pastel panels. Use shadcn-ui primitives for consistent UI surfaces; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Implement the unique 'Sky World cultivation' session loop: drift lane collection sessions that convert to persistent decorations, with rare timed Qudo boosts and multiple progression systems.",
+      "acceptanceCriteria": [
+        "A session loop exists (e.g., 60–180 seconds) with clear start, in-session actions, and end summary.",
+        "Collected items persist and visibly change the player’s Sky World over time (progression).",
+        "The glowing Qudo symbol appears as an in-game object with a clearly explained effect (boost/bonus).",
+        "Depth is provided through at least 3 progression systems (e.g., collection sets, streaks, quests, cosmetic unlocks) while remaining easy to start."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/game/sessionLogic.ts",
+          "operation": "create",
+          "description": "Implement the 60–180s session state machine (start → active → summary) including drift-lane movement, collection spawning, Qudo boost timing/effects, and end-of-session conversion rules into world decorations (client-side)."
+        },
+        {
+          "path": "frontend/src/game/progression.ts",
+          "operation": "create",
+          "description": "Implement at least three progression systems (e.g., collection set milestones, daily streak counter, and calming quests) and expose them to HUD/summary/World UI without complicating first-run start."
+        },
+        {
+          "path": "frontend/src/components/SessionSummaryModal.tsx",
+          "operation": "create",
+          "description": "Create an end-of-session summary modal showing active actions, flowers/sparkles gained, decorations unlocked/placed, and any Qudo boost effects. Use shadcn-ui Dialog for presentation; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/SkyWorldPage.tsx",
+          "operation": "create",
+          "description": "Implement the player's persistent 'Sky World' view that visually reflects decorations/progression changes over time, including placement/ordering of unlocked decoration strings from stored world state."
+        },
+        {
+          "path": "frontend/src/state/useSkyWorld.ts",
+          "operation": "create",
+          "description": "Add React Query hooks that read/update the player's Sky World using the existing backend actor interface when authenticated; fall back to local guest persistence when not authenticated."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the play view, session summary, and Sky World page into the main navigation flow (no orphan views). Use shadcn-ui navigation primitives (e.g., Tabs/Sheet) as appropriate; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Ensure Telegram Mini App compatibility: responsive touch controls, safe-area handling, Telegram WebApp init support with a graceful non-Telegram guest fallback.",
+      "acceptanceCriteria": [
+        "UI is mobile-first and playable on typical Telegram in-app webview sizes.",
+        "Controls work with touch (drag/tap) and mouse.",
+        "When Telegram WebApp APIs are unavailable, the game still runs with a local/guest mode."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/telegramWebApp.ts",
+          "operation": "create",
+          "description": "Implement a small Telegram WebApp wrapper that detects Telegram availability, reads initialization data when present, provides safe methods for haptics/expand/closing, and gracefully no-ops outside Telegram."
+        },
+        {
+          "path": "frontend/src/hooks/useTelegram.ts",
+          "operation": "create",
+          "description": "Create a React hook to access Telegram WebApp state (isTelegram, initData presence, safe-area metrics if available) and expose helpers for share/copy behaviors tailored to Telegram."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Add mobile-first global styles including safe-area padding using env(safe-area-inset-*) and calm touch-target sizing; keep pastel contrast readable."
+        },
+        {
+          "path": "frontend/src/game/input.ts",
+          "operation": "create",
+          "description": "Implement unified pointer/touch input handling (drag to guide cloud avatar, tap for gentle actions) compatible with mobile webviews and desktop mouse."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add a guest-mode fallback path for running outside Telegram and/or without Internet Identity, while keeping the core loop playable immediately."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add time-of-day pastel themes (night/morning/afternoon/evening) affecting gradient, cloud tint, sparkle density, and glow intensity, with a preview menu.",
+      "acceptanceCriteria": [
+        "The scene styling changes based on local time-of-day (client time).",
+        "Each time band has a distinct but coherent pastel palette and readable UI contrast.",
+        "Players can preview the 4 themes from a settings/debug menu (without changing system time)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/theme/timeOfDay.ts",
+          "operation": "create",
+          "description": "Implement time band detection (night/morning/afternoon/evening) and a theme model (palette + effect knobs like sparkle density/glow intensity) with an override for previews."
+        },
+        {
+          "path": "frontend/src/components/ThemeSettingsSheet.tsx",
+          "operation": "create",
+          "description": "Add a settings/debug sheet to preview the 4 themes and toggle automatic time-based theme selection. Use shadcn-ui Sheet/Select/RadioGroup; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/game/GameCanvas.tsx",
+          "operation": "modify",
+          "description": "Apply theme parameters to rendering (background selection, cloud tinting, sparkle density, Qudo glow intensity) while preserving pastel mood."
+        },
+        {
+          "path": "frontend/src/components/HudOverlay.tsx",
+          "operation": "modify",
+          "description": "Ensure HUD styling adapts to the active theme (readable contrast on pastel backgrounds) and exposes access to the theme preview menu."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Implement relaxing background audio with autoplay-policy compliance and persistent mute/volume controls with multiple ambient layers and a melody loop.",
+      "acceptanceCriteria": [
+        "Audio starts after the first tap/click and loops smoothly.",
+        "Mute/unmute and volume slider are available and persist for the user.",
+        "Audio assets are bundled as static files and do not require third-party services."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/audio/useAudioManager.ts",
+          "operation": "create",
+          "description": "Create an audio manager hook that loads 2 ambient layers (wind/chimes) plus a soft melody, starts playback only after first user interaction, loops seamlessly, and persists settings in localStorage."
+        },
+        {
+          "path": "frontend/src/components/AudioControls.tsx",
+          "operation": "create",
+          "description": "Add mute/unmute and volume slider UI integrated with the audio manager and styled to match the bubble pastel UI. Use shadcn-ui Slider/Button; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire AudioControls into the HUD/menu and ensure the first interaction unlocks audio playback without blocking gameplay start."
+        },
+        {
+          "path": "frontend/public/assets/audio/wind-loop.mp3",
+          "operation": "create",
+          "description": "Add bundled ambient wind loop audio asset to be used by the audio manager."
+        },
+        {
+          "path": "frontend/public/assets/audio/chimes-loop.mp3",
+          "operation": "create",
+          "description": "Add bundled ambient chimes loop audio asset to be used by the audio manager."
+        },
+        {
+          "path": "frontend/public/assets/audio/melody-loop.mp3",
+          "operation": "create",
+          "description": "Add bundled soft melody loop audio asset to be used by the audio manager."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add social visiting: shareable friend code/link, view friend Sky World snapshot, and leave a reaction that appears in the owner inbox (no reward exploits).",
+      "acceptanceCriteria": [
+        "Each user has a shareable friend code or share link that can be copied within Telegram.",
+        "A player can open a friend’s Sky World view by code/link.",
+        "Visitors can leave a reaction that is stored and visible to the world owner in a simple inbox list.",
+        "Social actions do not enable reward exploits (no direct reward transfer from visits)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SocialPage.tsx",
+          "operation": "create",
+          "description": "Create a Social screen with friend code/link display, input to visit a friend by code, and a simple inbox list for received reactions."
+        },
+        {
+          "path": "frontend/src/social/friendCodes.ts",
+          "operation": "create",
+          "description": "Implement friend code/share-link formatting and parsing (including Telegram-friendly copy/share text) with a fallback path when WebApp share APIs are unavailable."
+        },
+        {
+          "path": "frontend/src/social/FriendWorldView.tsx",
+          "operation": "create",
+          "description": "Implement a read-only view for a friend's Sky World snapshot with a lightweight reaction composer (sparkle note) that submits a visit reaction."
+        },
+        {
+          "path": "frontend/src/state/useSocial.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for social reads/writes using the existing backend actor interface when authenticated (friend world lookup, visit reaction submit, inbox fetch). Ensure UI messaging clarifies no rewards are transferred for social actions."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire SocialPage and FriendWorldView into navigation and deep-link handling (e.g., reading code from URL params/hash) without adding unnecessary extra top-level routes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Provide bot-style command mapping inside the Mini App: Help/Commands screen with in-app actions and shareable deep links/codes plus documentation text.",
+      "acceptanceCriteria": [
+        "The UI includes a Help/Commands screen listing commands and their meaning in English.",
+        "Equivalent actions are available in-app (buttons/menus) and produce shareable URLs/codes suitable for Telegram sharing.",
+        "Documentation text exists in-app or in a local page explaining how commands map to Mini App entry points."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/HelpCommandsPage.tsx",
+          "operation": "create",
+          "description": "Create a Help/Commands screen listing /start, /play, /world, /visit <code>, /balance, /help and their in-app equivalents, including documentation text describing how a Telegram bot would deep-link users into the Mini App (no external infra required). Use shadcn-ui Accordion/Card for readability; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/deepLinks.ts",
+          "operation": "create",
+          "description": "Implement internal deep-link builders/parsers (hash/query) for play/world/visit/balance/help so the UI can generate shareable URLs/codes suitable for Telegram sharing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire HelpCommandsPage into navigation and ensure deep-link parsing routes the user to the requested in-app view."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Implement a coherent pastel sky UI theme across all screens with rounded bubble surfaces, gentle motion, sparkly accents, and friendly typography.",
+      "acceptanceCriteria": [
+        "All main screens share consistent color palette, spacing, and rounded visual language.",
+        "Animations are subtle and calming (no harsh flashes).",
+        "Text remains readable with sufficient contrast on pastel backgrounds."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define global CSS variables and Tailwind base styles for the pastel sky palette, rounded bubble surfaces, subtle grain overlays, sparkly accents, and calm motion defaults (reduced-motion friendly)."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme with Skyworld-specific pastel tokens and animation utilities to avoid default/template look while keeping consistent UI contrast."
+        },
+        {
+          "path": "frontend/src/components/PastelPanel.tsx",
+          "operation": "create",
+          "description": "Create a reusable wrapper component for bubble panels using the generated UI texture and theme tokens, to ensure consistent styling across HUD/menus/pages. Use shadcn-ui className patterns where appropriate; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Apply the PastelPanel pattern and unified typography/spacing across Play, World, Social, Rewards, Shop, and Help screens."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Add a non-pay-to-win Cosmetics Shop UI with at least 12 cosmetic items, preview/equip functionality, and placeholders for future paid upgrades.",
+      "acceptanceCriteria": [
+        "A Cosmetics Shop screen exists with at least 12 cosmetic items grouped into categories.",
+        "Cosmetics can be previewed and equipped; effects are visual-only.",
+        "No gameplay advantage is granted by cosmetics.",
+        "Any paid monetization is explicitly labeled as 'future/placeholder' and not wired to third-party payments."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CosmeticsShopPage.tsx",
+          "operation": "create",
+          "description": "Implement a Cosmetics Shop screen with categories (cloud trails, flower palettes, sparkle styles, world frames) and at least 12 items. Provide preview and equip actions; label any paid path as future/placeholder only. Use shadcn-ui Tabs/Card/Button; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/cosmetics/catalog.ts",
+          "operation": "create",
+          "description": "Define the cosmetic catalog (>=12 items) including visual-only effect metadata (trail color, sparkle sprite choice, frame overlay) and soft-currency costs."
+        },
+        {
+          "path": "frontend/src/state/useCosmetics.ts",
+          "operation": "create",
+          "description": "Implement client-side soft-currency tracking (earned through play) and equipped cosmetic persistence (localStorage for guests; backend world decorations field where appropriate when authenticated via existing sky world update calls)."
+        },
+        {
+          "path": "frontend/src/game/GameCanvas.tsx",
+          "operation": "modify",
+          "description": "Apply equipped cosmetic effects strictly visually (e.g., trail tint, sparkle style, world frame overlay) with no gameplay/stat changes."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Cosmetics Shop screen into navigation and ensure the preview/equip flow is accessible from the main menu/HUD."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Bundle and use required generated static art assets for backgrounds and sprites; no runtime image generation or external URLs.",
+      "acceptanceCriteria": [
+        "Generated images are placed under frontend/public/assets/generated and used by the UI/game.",
+        "The game does not require external image URLs to look complete.",
+        "Assets include backgrounds for time-of-day variants and sprites for clouds/flowers/sparkles/Qudo symbol."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/sky-bg-morning.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the required generated morning background asset as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/sky-bg-afternoon.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the required generated afternoon background asset as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/sky-bg-evening.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the required generated evening background asset as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/sky-bg-night.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the required generated night background asset as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/cloud-avatar-sprites.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the required generated cloud avatar sprite sheet as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/flower-icons-sheet.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the required generated flower icons sprite sheet as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/sparkle-particles.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the required generated sparkles/star particles sprite sheet as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/qudo-sun-icon.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the required generated glowing Qudo-like symbol icon as a static file."
+        },
+        {
+          "path": "frontend/public/assets/generated/ui-panel-texture.dim_1024x1024.png",
+          "operation": "create",
+          "description": "Add the required generated rounded UI panel texture as a static file."
+        },
+        {
+          "path": "frontend/src/game/assets.ts",
+          "operation": "modify",
+          "description": "Wire all generated asset filenames into the asset registry and ensure time-of-day backgrounds and sprites are used throughout UI/game without external URLs."
+        },
+        {
+          "path": "frontend/src/components/PastelPanel.tsx",
+          "operation": "modify",
+          "description": "Use frontend/public/assets/generated/ui-panel-texture.dim_1024x1024.png for subtle grain/texture on bubble panels while keeping text readable."
+        }
+      ]
+    }
+  ]
+}

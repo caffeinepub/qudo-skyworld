@@ -1,0 +1,4 @@
+{
+  "frontend/src/game/GameCanvas.tsx": "Main game canvas component that renders the 2D sky world game using requestAnimationFrame, handles player input, manages session state, and displays the HUD overlay and session summary modal.",
+  "frontend/src/social/friendCodes.ts": "Utility functions for generating, parsing, and sharing friend codes with helper functions for creating share text and URLs for social features."
+}
